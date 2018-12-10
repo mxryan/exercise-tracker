@@ -15,7 +15,7 @@ const ExerciseSchema = new mongoose.Schema({
     required: "A valid exercise date is required"
   },
   userId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: "A user ID is required"
   }
 });
