@@ -10,6 +10,7 @@
 <body>
   <div class="container">
     <h1>Hi There</h1>
+
     <div class="row">
       <div class="col-md-6">
         <h3>This will be the form for submitting a new user</h3>
@@ -43,7 +44,34 @@
     </div>
   </div>
   <script>
-    
+    function submitData (url, data) {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(data)
+      }).then(res => {
+        return res.json();
+      }).then(json => {
+        console.log(json);
+      })
+    }
+    document.querySelector("#exercise-entry-sub").addEventListener("click", (e)=>{
+      e.preventDefault();
+      const userId = document.querySelector("#user-id").value;
+      const exerciseDescription = document.querySelector("#exercise-description").value;
+      const exerciseDuration = document.querySelector("#exercise-duration").value;
+      const exerciseDate = document.querySelector("#exercise-date").value;
+      const outData = {userId, exerciseDescription, exerciseDuration, exerciseDate}
+      submitData("/api/exercise/add", outData);
+    });
+
+    document.querySelector("#new-user-sub").addEventListener("click", (e)=>{
+      e.preventDefault();
+      const username = document.querySelector("#new-user-input").value;
+      submitData("/api/exercise/new-user", {username});
+    })
   </script>
 </body>
 </html>
