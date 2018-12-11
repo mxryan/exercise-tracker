@@ -4,9 +4,17 @@ const db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect("mongodb://localhost/exercise_tracker", {
-  useNewUrlParser: true
-});
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true
+  });
+} else {
+  mongoose.connect("mongodb://localhost/exercise_tracker", {
+    useNewUrlParser: true
+  });
+}
+
+
 
 app.use(express.static("public"));
 app.use(express.json());
