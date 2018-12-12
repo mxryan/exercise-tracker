@@ -14,8 +14,6 @@ if (process.env.MONGODB_URI) {
   });
 }
 
-
-
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -75,5 +73,24 @@ app.post("/api/exercise/add", (req, res) => {
     }
   })
 });
+
+// query params: userId(required), from, to, limit
+// this route should: find all log entries that match the userId, between the given date range (if given), and limit results to the indicated limit
+
+app.get("/api/exercise/log", (req, res) => {
+  console.log(req.query);
+  db.Exercise.find({userId: req.query.userId}, (findErr, foundExercises) => {
+    if (findErr) {
+      res.status(500).send({error: findErr});
+      return console.log(findErr);
+    }
+    if (foundExercises) {
+      res.status(201).send({data: foundExercises});
+    } else {
+      res.status(404).send({message: "Could not find any entries for that userId"});
+    }
+  })
+  
+})
 
 app.listen(PORT, () => console.log("Server is listening"));
