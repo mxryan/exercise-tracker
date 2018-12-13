@@ -20,6 +20,15 @@ app.use(express.urlencoded({
   extended: false
 }));
 
+
+function isEmpty(obj) {
+  for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
+}
+
 app.get("/", (req, res) => {
   res.sendFile("public/index.html");
 });
@@ -74,12 +83,14 @@ app.post("/api/exercise/add", (req, res) => {
   })
 });
 
-// query params: userId(required), from, to, limit
-// this route should: find all log entries that match the userId, between the given date range (if given), and limit results to the indicated limit
-
 app.get("/api/exercise/log", (req, res) => {
-  console.log(req.query);
-  db.Exercise.find({userId: req.query.userId}, (findErr, foundExercises) => {
+  const {userId, from, to, limit} = req.query;
+  const dateQuery = {}
+  const queryParams = {userId}
+  if (from) dateQuery.$gte = new Date(from);
+  if (to) dateQuery.$lte = new Date(to);
+  if (!isEmpty(dateQuery)) queryParams.date = dateQuery;
+  db.Exercise.find(queryParams, (findErr, foundExercises) => {
     if (findErr) {
       res.status(500).send({error: findErr});
       return console.log(findErr);
@@ -89,8 +100,7 @@ app.get("/api/exercise/log", (req, res) => {
     } else {
       res.status(404).send({message: "Could not find any entries for that userId"});
     }
-  })
-  
+  }).limit(parseInt(limit));
 })
 
 app.listen(PORT, () => console.log("Server is listening"));
