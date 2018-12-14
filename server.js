@@ -64,15 +64,10 @@ app.post("/api/exercise/add", (req, res) => {
       return console.log(err);
     }
     if (foundUser) {
-      const exercise = new db.Exercise({
-        userId: req.body.userId,
-        description: req.body.exerciseDescription,
-        duration: req.body.exerciseDuration,
-        date: req.body.exerciseDate
-      });
+      const exercise = new db.Exercise(req.body);
       exercise.save((saveErr, savedExercise) => {
         if (saveErr) {
-          res.status(500).send({error: saveErr});
+          res.status(500).send({ error: saveErr });
           return console.log(saveErr);
         }
         res.status(201).send({ data: savedExercise})

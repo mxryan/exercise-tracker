@@ -9,38 +9,48 @@
 </head>
 <body>
   <div class="container">
-    <h1>Hi There</h1>
-
+    <h1>Exercise Tracker</h1>
+    <hr>
     <div class="row">
       <div class="col-md-6">
-        <h3>This will be the form for submitting a new user</h3>
-        <form>
-          <label for="new-user-input">Username</label>
-          <br>
-          <input type="text" id="new-user-input">
-          <br>
+         <form action="/api/exercise/new-user" method="post">
+            <h4>Create a New User</h4>
+            <hr>
+            <p><code>POST /api/exercise/new-user</code></p>
+            <input id="uname" type="text" name="username" placeholder="username">
+            <input type="submit" value="Submit"><br><br>
+          </form>
+      </div>
+      <div class="col-md-6 ">
+        <form action="/api/exercise/add" method="post">
+          <h4>Add exercises</h4>
           <hr>
-          <input type="submit" id="new-user-sub">
+          <p><code>POST /api/exercise/add</code></p>
+          <input id="uid" type="text" name="userId" placeholder='userId*'>
+          <input id="desc" type="text" name="description" placeholder="description*"><br>
+          <input id="dur" type="text" name="duration" placeholder="duration* (mins.)">
+          <input id="dur" type="text" name="date" placeholder="date (yyyy-mm-dd)"><br><br>
+          <input type="submit" value="Submit">
         </form>
       </div>
-      <div class="col-md-6">
-        <h3>This will be the form for submitting excercise data</h3>
-        <form>
-          <label for="user-id">User ID</label><br>
-          <input type="text" id="user-id">
-          <hr>
-          <label for="exercise-description">Exercise Description</label><br>
-          <input type="text" id="exercise-description">
-          <hr>
-          <label for="exercise-duration">Exercise Duration (minutes)</label><br>
-          <input type="text" id="exercise-duration">
-          <hr>
-          <label for="exercise-date">Date of Exercise (YYYY-MM-DD)</label><br>
-          <input type="text" id="exercise-date">
-          <hr>
-          <input type="submit" id="exercise-entry-sub">
-        </form>
-      </div>
+    </div>
+    <br>
+    <div class="row">
+      
+        <div class="col-md-6">
+          
+            <h4>GET users's exercise log:</h4>
+            <hr>
+            <p><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>
+          
+          <p>
+            <strong>{ }</strong> = required, <strong>[ ]</strong> = optional
+          </p>
+          <p>
+            <strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number
+          </p>
+        </div>
+        <div class="col-md-6"></div>
     </div>
   </div>
   <script>
