@@ -1,4 +1,7 @@
 # exercise-tracker
+
+View the deployed app <a href="https://dry-gorge-32785.herokuapp.com/">here</a>.
+
 This is the fourth project in a series of projects that goes towards earning a certificate from freeCodeCamp in APIs and Microservices. The instructions can be found <a href="https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/exercise-tracker">here</a>.
 
 ## About :
